@@ -1,3 +1,10 @@
+---
+title: Mdoc cats-effect modifier
+scala-mdoc: true
+---
+
+
+
 ```scala mdoc:invisible
 import cats.effect._
 ```
