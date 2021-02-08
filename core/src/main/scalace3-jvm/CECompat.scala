@@ -16,14 +16,11 @@
 
 package mdoc.effect
 
-import subatomic.builders._
-import subatomic.builders.librarysite._
+import cats.effect._
+import cats.effect.unsafe.implicits.global
 
-object Build extends LibrarySite.App {
-  def config = LibrarySite(
-    contentRoot = os.pwd / "docs" / "pages",
-    name = "Mdoc helper for Cats Effect",
-    assetsRoot = Some(os.pwd / "docs" / "assets"),
-    highlightJS = HighlightJS.default.copy(theme = "monokai-sublime")
-  )
+object CECompat {
+  def unsafeRun[A](i: IO[A]) = i.unsafeRunSync()
+
+  def resource[A](ir: IO[A]): Resource[IO, A] = Resource.eval(ir)
 }

@@ -1,0 +1,10 @@
+*.class
+
+project/project
+
+.bloop
+.metals
+.bsp
+.vscode
+
+
