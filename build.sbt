@@ -1,4 +1,3 @@
-resolvers += Resolver.sonatypeRepo("snapshots")
 scalaVersion := "2.13.4"
 
 import Settings._
@@ -25,7 +24,7 @@ lazy val core = projectMatrix
   .settings(
     libraryDependencies += {
       if (virtualAxes.value.contains(CatsEffect3Axis))
-        "org.typelevel" %% "cats-effect" % "3.0.0-M5"
+        "org.typelevel"    %% "cats-effect" % "3.0.0-M5"
       else "org.typelevel" %% "cats-effect" % "2.3.1"
     },
     libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.17"
@@ -59,6 +58,7 @@ lazy val docs = project
 
 inThisBuild(
   Seq(
+    resolvers += Resolver.sonatypeRepo("snapshots"),
     organization := "com.indoorvivants",
     organizationName := "Anton Sviridov",
     homepage := Some(url("https://github.com/indoorvivants/mdoc-effect")),
