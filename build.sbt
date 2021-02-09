@@ -1,3 +1,4 @@
+resolvers += Resolver.sonatypeRepo("snapshots")
 scalaVersion := "2.13.4"
 
 import Settings._

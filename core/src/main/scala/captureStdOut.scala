@@ -33,7 +33,7 @@ object captureStdOut {
   ): IO[PrintStream] =
     for {
       out <- IO(get())
-      _ <- IO(set(ps))
+      _   <- IO(set(ps))
     } yield out
 
   private def restore(ps: PrintStream, set: PrintStream => Unit): IO[Unit] =
@@ -54,8 +54,8 @@ object captureStdOut {
   def apply(io: => IO[Unit]): IO[String] = {
     val test = for {
       out <- CECompat.resource(IO(new ByteArrayOutputStream()))
-      ps <- printStream(out)
-      _ <- replaceStandardOut(ps)
+      ps  <- printStream(out)
+      _   <- replaceStandardOut(ps)
     } yield out
 
     test.use(out => io.as(out)).flatMap(extractMessage)

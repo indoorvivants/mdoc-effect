@@ -16,10 +16,13 @@ jobs:
       - uses: olafurpg/setup-scala@v10
         with:
           java-version: adopt@1.8
-      - name: Build mdoc
-        run: sbt docs/mdoc
-      - name: Print out generated files
-        run: cat ce-docs/target/mdoc/*.md
+      - name: Build site
+        run: sbt "docs/run build --destination $(pwd)/_site"
+      - name: Publish gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
 
   
 
