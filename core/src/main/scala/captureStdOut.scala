@@ -20,7 +20,6 @@ import java.io._
 import java.nio.charset.StandardCharsets
 
 object captureStdOut {
-
   private def printStream(
       out: ByteArrayOutputStream
   ): Resource[IO, PrintStream] =

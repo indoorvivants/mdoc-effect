@@ -8,6 +8,8 @@ A very simple modifier to write documentation about Cats Effect libraries.
 
 ## Installation
 
+This library is published to Maven Central.
+
 Add the following dependency to your documentation project (the one on which
 `MdocPlugin` is enabled)
 
