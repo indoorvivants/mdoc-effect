@@ -4,6 +4,9 @@ import Settings._
 
 val scalas = Seq("2.12.13", "2.13.4")
 
+val CE3_Version = "3.0.0-RC1"
+val CE2_Version = "2.3.3"
+
 lazy val core = projectMatrix
   .in(file("core"))
   .defaultAxes(
@@ -24,30 +27,50 @@ lazy val core = projectMatrix
   .settings(
     libraryDependencies += {
       if (virtualAxes.value.contains(CatsEffect3Axis))
-        "org.typelevel"    %% "cats-effect" % "3.0.0-M5"
-      else "org.typelevel" %% "cats-effect" % "2.3.1"
+        "org.typelevel"    %% "cats-effect" % CE3_Version 
+      else "org.typelevel" %% "cats-effect" % CE2_Version 
     },
-    libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.17" % "provided"
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.18" % "provided"
   )
   .settings(moduleName := {
     if (virtualAxes.value.contains(CatsEffect3Axis)) "mdoc-effect-ce3"
     else "mdoc-effect-ce2"
   })
 
-lazy val coreJVM = core.finder(CatsEffect3Axis)("2.13.4")
+lazy val core_CE2 = core.finder(CatsEffect2Axis)("2.13.4")
+lazy val core_CE3 = core.finder(CatsEffect3Axis)("2.13.4")
 
 lazy val docs = project
   .in(file("docs"))
   .settings(scalaVersion := "2.13.4")
-  .dependsOn(coreJVM)
   .enablePlugins(SubatomicPlugin)
   .settings(
     skip in publish := true,
-    subatomicMdocPlugins += subatomicMdocPlugin(
-      (coreJVM / Compile / target).value / "classes"
-    ),
-    subatomicMdocPlugins += subatomicMdocPlugin(
-      "org.typelevel" %% "cats-effect" % "3.0.0-M5"
+    subatomicDependencies ++= Seq(
+      Subatomic.path(
+        (core_CE2 / Compile / target).value / "classes",
+        "cats-effect-2"
+      ),
+      Subatomic.paths(
+        (core_CE2 / Compile / resourceDirectories).value,
+        "cats-effect-2"
+      ),
+      Subatomic.dependency(
+        "org.typelevel" %% "cats-effect" % CE2_Version, 
+        "cats-effect-2"
+      ),
+      Subatomic.path(
+        (core_CE3 / Compile / target).value / "classes",
+        "cats-effect-3"
+      ),
+      Subatomic.paths(
+        (core_CE3 / Compile / resourceDirectories).value,
+        "cats-effect-3"
+      ),
+      Subatomic.dependency(
+        "org.typelevel" %% "cats-effect" % CE3_Version, 
+        "cats-effect-3"
+      )
     ),
     watchSources += WatchSource(
       (baseDirectory in ThisBuild).value / "docs" / "pages"
