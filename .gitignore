@@ -7,4 +7,5 @@ project/project
 .bsp
 .vscode
 
-
+core/target
+docs/target

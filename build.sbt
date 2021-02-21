@@ -27,8 +27,8 @@ lazy val core = projectMatrix
   .settings(
     libraryDependencies += {
       if (virtualAxes.value.contains(CatsEffect3Axis))
-        "org.typelevel"    %% "cats-effect" % CE3_Version 
-      else "org.typelevel" %% "cats-effect" % CE2_Version 
+        "org.typelevel"    %% "cats-effect" % CE3_Version
+      else "org.typelevel" %% "cats-effect" % CE2_Version
     },
     libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.18" % "provided"
   )
@@ -42,6 +42,10 @@ lazy val core_CE3 = core.finder(CatsEffect3Axis)("2.13.4")
 
 lazy val docs = project
   .in(file("docs"))
+  .dependsOn(
+    core_CE2,
+    core_CE3
+  ) // there's actually no compilation going on, we just want it to be triggered
   .settings(scalaVersion := "2.13.4")
   .enablePlugins(SubatomicPlugin)
   .settings(
@@ -56,7 +60,7 @@ lazy val docs = project
         "cats-effect-2"
       ),
       Subatomic.dependency(
-        "org.typelevel" %% "cats-effect" % CE2_Version, 
+        "org.typelevel" %% "cats-effect" % CE2_Version,
         "cats-effect-2"
       ),
       Subatomic.path(
@@ -68,7 +72,7 @@ lazy val docs = project
         "cats-effect-3"
       ),
       Subatomic.dependency(
-        "org.typelevel" %% "cats-effect" % CE3_Version, 
+        "org.typelevel" %% "cats-effect" % CE3_Version,
         "cats-effect-3"
       )
     ),
