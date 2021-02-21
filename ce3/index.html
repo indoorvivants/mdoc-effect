@@ -1,0 +1,38 @@
+<html><head><title>Mdoc helper for Cats Effect: Cats Effect 3 </title><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/styles/monokai-sublime.min.css" /><script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/highlight.min.js"></script><script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.5.0/build/languages/scala.min.js"></script><script>hljs.initHighlightingOnLoad();</script><link rel="stylesheet" href="/assets/template.css" /><script src="/assets/search.js"></script><script src="/assets/search-index.js"></script><link rel="stylesheet" href="/assets/subatomic-search.css" /><meta charset="UTF-8" /></head><body><div class="container"><header class="main-header"><div class="site-title"><h1><a href="/">Mdoc helper for Cats Effect</a></h1></div><div id="searchContainer" class="searchContainer"></div><div class="site-links"><a href="https://github.com/indoorvivants/mdoc-effect"><img src="https://cdn.svgporn.com/logos/github-icon.svg" class="gh-logo" /></a></div></header><div><a class="nav-btn" href="/index.html">Home </a><a class="nav-btn" href="/ce2/index.html">Cats Effect 2 </a><a class="nav-btn nav-selected" href="/ce3/index.html">Cats Effect 3 </a></div><hr /><div><h2><a href="#usage" id="usage">Usage</a></h2>
+<p>Just use <code>io-silent</code> and make sure the last value the codeblock returns is
+of type <code>IO[_]</code>, for example:</p>
+<pre><code class="language-md">```scala mdoc:io-silent
+import cats.effect._
+import scala.concurrent.duration._
+
+def go(i: Int): IO[Unit] = i match {
+  case 0 =&gt; IO.unit
+  case n =&gt; IO.sleep(5.millis) *&gt; IO.println(s&quot;tick $i&quot;) &gt;&gt; go(n - 1)
+}
+
+go(10)
+```
+</code></pre>
+<p>Which will be executed, the output captured and rendered separately:</p>
+<pre><code class="language-scala">import cats.effect._
+import scala.concurrent.duration._
+
+def go(i: Int): IO[Unit] = i match {
+  case 0 =&gt; IO.unit
+  case n =&gt; IO.sleep(5.millis) *&gt; IO.println(s&quot;tick $i&quot;) &gt;&gt; go(n - 1)
+}
+
+go(10)
+</code></pre>
+<div class='terminal'><pre><code class = 'nohighlight'>tick 10
+tick 9
+tick 8
+tick 7
+tick 6
+tick 5
+tick 4
+tick 3
+tick 2
+tick 1
+</code></pre></div>
+</div></div><footer>© 2021-2021 Anton Sviridov</footer></body></html>
