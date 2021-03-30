@@ -5,7 +5,7 @@ import Settings._
 val scalas = Seq("2.12.13", "2.13.4")
 
 val CE3_Version = "3.0.1"
-val CE2_Version = "2.4.2"
+val CE2_Version = "2.4.1"
 
 lazy val core = projectMatrix
   .in(file("core"))
