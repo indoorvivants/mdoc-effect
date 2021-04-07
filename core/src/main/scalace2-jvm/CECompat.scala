@@ -20,5 +20,5 @@ import cats.effect._
 
 object CECompat {
   def unsafeRun[A](i: IO[A]) = i.unsafeRunSync()
-  def resource[A](ir: IO[A]) = Resource.liftF(ir)
+  def resource[A](ir: IO[A]) = Resource.eval(ir)
 }

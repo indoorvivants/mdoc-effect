@@ -1,8 +1,9 @@
-scalaVersion := "2.13.4"
-
 import Settings._
 
-val scalas = Seq("2.12.13", "2.13.4")
+val Scala213 = "2.13.4"
+val Scala212 = "2.12.13"
+
+val scalas = Seq(Scala212, Scala213)
 
 val CE3_Version = "3.0.1"
 val CE2_Version = "2.4.1"
@@ -12,7 +13,7 @@ lazy val core = projectMatrix
   .defaultAxes(
     CatsEffect3Axis,
     VirtualAxis.jvm,
-    VirtualAxis.scalaABIVersion("2.13.4")
+    VirtualAxis.scalaABIVersion(Scala213)
   )
   .customRow(
     scalaVersions = scalas,
@@ -37,8 +38,8 @@ lazy val core = projectMatrix
     else "mdoc-effect-ce2"
   })
 
-lazy val core_CE2 = core.finder(CatsEffect2Axis)("2.13.4")
-lazy val core_CE3 = core.finder(CatsEffect3Axis)("2.13.4")
+lazy val core_CE2 = core.finder(CatsEffect2Axis)(Scala213)
+lazy val core_CE3 = core.finder(CatsEffect3Axis)(Scala213)
 
 lazy val docs = project
   .in(file("docs"))
@@ -46,7 +47,7 @@ lazy val docs = project
     core_CE2,
     core_CE3
   ) // there's actually no compilation going on, we just want it to be triggered
-  .settings(scalaVersion := "2.13.4")
+  .settings(scalaVersion := Scala213)
   .enablePlugins(SubatomicPlugin)
   .settings(
     skip in publish := true,
