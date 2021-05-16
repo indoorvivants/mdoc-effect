@@ -1,12 +1,13 @@
 import Settings._
 
-val Scala213 = "2.13.4"
+val Scala213 = "2.13.5"
 val Scala212 = "2.12.13"
+val Scala3   = "3.0.0"
 
-val scalas = Seq(Scala212, Scala213)
+val scalas = Seq(Scala212, Scala213, Scala3)
 
-val CE3_Version = "3.0.1"
-val CE2_Version = "2.4.1"
+val CE3_Version = "3.1.1"
+val CE2_Version = "2.5.1"
 
 lazy val core = projectMatrix
   .in(file("core"))
@@ -31,7 +32,7 @@ lazy val core = projectMatrix
         "org.typelevel"    %% "cats-effect" % CE3_Version
       else "org.typelevel" %% "cats-effect" % CE2_Version
     },
-    libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.18" % "provided"
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.21" % "provided"
   )
   .settings(moduleName := {
     if (virtualAxes.value.contains(CatsEffect3Axis)) "mdoc-effect-ce3"
@@ -43,14 +44,10 @@ lazy val core_CE3 = core.finder(CatsEffect3Axis)(Scala213)
 
 lazy val docs = project
   .in(file("docs"))
-  .dependsOn(
-    core_CE2,
-    core_CE3
-  ) // there's actually no compilation going on, we just want it to be triggered
   .settings(scalaVersion := Scala213)
   .enablePlugins(SubatomicPlugin)
   .settings(
-    skip in publish := true,
+    publish / skip := true,
     subatomicDependencies ++= Seq(
       Subatomic.path(
         (core_CE2 / Compile / target).value / "classes",
@@ -78,10 +75,10 @@ lazy val docs = project
       )
     ),
     watchSources += WatchSource(
-      (baseDirectory in ThisBuild).value / "docs" / "pages"
+      (ThisBuild / baseDirectory).value / "docs" / "pages"
     ),
-    unmanagedSourceDirectories in Compile +=
-      (baseDirectory in ThisBuild).value / "docs"
+    Compile / unmanagedSourceDirectories +=
+      (ThisBuild / baseDirectory).value / "docs"
   )
 
 inThisBuild(
