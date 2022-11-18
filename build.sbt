@@ -1,12 +1,12 @@
 import Settings._
 
-val Scala213 = "2.13.5"
-val Scala212 = "2.12.13"
-val Scala3   = "3.0.0"
+val Scala213 = "2.13.10"
+val Scala212 = "2.12.17"
+val Scala3   = "3.1.3"
 
 val scalas = Seq(Scala212, Scala213, Scala3)
 
-val CE3_Version = "3.1.1"
+val CE3_Version = "3.3.14"
 val CE2_Version = "2.5.1"
 
 lazy val core = projectMatrix
@@ -32,7 +32,7 @@ lazy val core = projectMatrix
         "org.typelevel"    %% "cats-effect" % CE3_Version
       else "org.typelevel" %% "cats-effect" % CE2_Version
     },
-    libraryDependencies += "org.scalameta" %% "mdoc" % "2.2.21" % "provided"
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.3.6" % "provided"
   )
   .settings(moduleName := {
     if (virtualAxes.value.contains(CatsEffect3Axis)) "mdoc-effect-ce3"

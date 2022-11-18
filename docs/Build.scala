@@ -37,6 +37,7 @@ object Build extends LibrarySite.App {
     assetsFilter = _.baseName != "CNAME",
     copyright = Some(s"© 2021-$currentYear Anton Sviridov"),
     assetsRoot = Some(os.pwd / "docs" / "assets"),
-    highlightJS = HighlightJS.default.copy(theme = "monokai-sublime")
+    highlighting =
+      SyntaxHighlighting.HighlightJS.default.copy(theme = "monokai-sublime")
   )
 }
