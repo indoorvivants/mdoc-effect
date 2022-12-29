@@ -6,7 +6,7 @@ val Scala3   = "3.2.1"
 
 val scalas = Seq(Scala212, Scala213, Scala3)
 
-val CE3_Version = "3.3.14"
+val CE3_Version = "3.4.3"
 val CE2_Version = "2.5.1"
 
 lazy val core = projectMatrix
