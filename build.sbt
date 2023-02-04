@@ -7,7 +7,7 @@ val Scala3   = "3.2.2"
 val scalas = Seq(Scala212, Scala213, Scala3)
 
 
-val CE3_Version = "3.4.4"
+val CE3_Version = "3.4.6"
 
 val CE2_Version = "2.5.5"
 
