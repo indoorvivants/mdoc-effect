@@ -34,7 +34,7 @@ lazy val core = projectMatrix
         "org.typelevel"    %% "cats-effect" % CE3_Version
       else "org.typelevel" %% "cats-effect" % CE2_Version
     },
-    libraryDependencies += "org.scalameta" %% "mdoc" % "2.3.6" % "provided"
+    libraryDependencies += "org.scalameta" %% "mdoc" % "2.3.7" % "provided"
   )
   .settings(moduleName := {
     if (virtualAxes.value.contains(CatsEffect3Axis)) "mdoc-effect-ce3"
